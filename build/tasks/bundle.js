@@ -1,6 +1,10 @@
 var gulp = require('gulp');
 var bundler = require('aurelia-bundler');
 var bundles = require('../bundles.js');
+var gulp = require('gulp');
+var paths = require('../paths');
+var del = require('del');
+var vinylPaths = require('vinyl-paths');
 
 var config = {
   force: true,
@@ -10,10 +14,16 @@ var config = {
   bundles: bundles.bundles
 };
 
-gulp.task('bundle', ['unbundle'], function() {
-  return bundler.bundle(config);
+
+// deletes all files in the output path
+gulp.task('clean', function() {
+  return gulp.src(['./bundles/bundle.js'])
+    .pipe(vinylPaths(del));
 });
 
-gulp.task('unbundle', ['clean'], function() {
+gulp.task('unbundle', gulp.series('clean', function() {
   return bundler.unbundle(config);
-});
+}));
+gulp.task('bundle', gulp.series('unbundle', function() {
+  return bundler.bundle(config);
+}));
