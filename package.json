@@ -59,7 +59,7 @@
     "gulp": "^4.0.2",
     "graceful-fs": "4.2.2",
     "jspm": "^0.16.15",
-    "vinyl-fs": "0.1.4",
+    "vinyl-fs": "3.0.3",
     "require-dir": "^0.3.0",
     "vinyl-paths": "^2.1.0"
   }
